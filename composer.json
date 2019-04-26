@@ -1,6 +1,7 @@
 {
   "name": "tasoft/phpstorm-template",
   "license": "MIT",
+  "description": "Simple library to manipulate virtual paths",
   "authors": [
     {
       "name": "Thomas Abplanalp",

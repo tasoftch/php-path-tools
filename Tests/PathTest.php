@@ -91,6 +91,12 @@ class PathTest extends TestCase
         $this->assertEquals("./", Tool::relative("/my/path/to/directory/file.txt", "/my/path/to/directory/"));
 
         $this->assertEquals("../", Tool::relative("/my/path/to/directory/file.txt/", "/my/path/to/directory/"));
+
+        $this->assertEquals("2", Tool::relative("/my/dir/1", "/my/dir/2"));
+        $this->assertEquals("../2", Tool::relative("/my/dir/1/", "/my/dir/2"));
+
+        $this->assertEquals("2/", Tool::relative("/my/dir/1", "/my/dir/2/"));
+        $this->assertEquals("../2/", Tool::relative("/my/dir/1/", "/my/dir/2/"));
     }
 
 

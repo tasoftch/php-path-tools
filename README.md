@@ -12,7 +12,6 @@ To solve this problem, the library declares virtual paths using the following no
  
  So the Path Tool provides two methods to determine if a path is a zero path or a directory
  ```php
-<?php
 use TASoft\Util\PathTool;
 PathTool::isZeroPath("/my/path");       // TRUE
 PathTool::isZeroPath("../path/");       // FALSE
@@ -36,4 +35,31 @@ $options = PathTool::OPTION_RESOLVE | PathTool::OPTION_YIELD_ROOT;
 
 // Or subtract them
 $options = PathTool::OPTION_ALL & ~PathTool::OPTION_DENY_OUT_OF_BOUNDS & ~PathTool::OPTION_YIELD_ROOT;
+```
+## Usage
+```php
+<?php
+use TASoft\Util\PathTool;
+
+// Normalize
+echo PathTool::normalize("/my/path/./to////oops/../../file.txt"); // /my/path/file.txt
+echo PathTool::normalize("/path/../../");                         // Fails!
+// Out of bounds!                  ^^
+
+echo PathTool::normalize("path/../../");                          // ../
+
+// Relative
+// Works only with zero paths!
+echo PathTool::relative("/my/dir/1/", "/my/dir/1/file.txt");      // file.txt
+echo PathTool::relative("/my/dir/1/", "my/dir/1/file.txt");       // Fails!
+// not a zero path                     ^
+
+echo PathTool::relative("/my/dir/1", "/my/dir/2");                // 2 (because /my/dir/1 is a file)
+echo PathTool::relative("/my/dir/1/", "/my/dir/2");               // ../2
+
+echo PathTool::relative("/my/dir/1", "/my/dir/2/");               // 2/
+echo PathTool::relative("/my/dir/1/", "/my/dir/2/");              // ../2/
+
+echo PathTool::relative("/path/file.txt", "/path/file.txt");      // ""
+echo PathTool::relative("/path/file.txt", "/path/");              // ./
 ```
