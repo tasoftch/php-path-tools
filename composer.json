@@ -1,5 +1,5 @@
 {
-  "name": "tasoft/phpstorm-template",
+  "name": "tasoft/tools-path",
   "license": "MIT",
   "description": "Simple library to manipulate virtual paths",
   "authors": [
