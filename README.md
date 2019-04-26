@@ -38,7 +38,6 @@ $options = PathTool::OPTION_ALL & ~PathTool::OPTION_DENY_OUT_OF_BOUNDS & ~PathTo
 ```
 ## Usage
 ```php
-<?php
 use TASoft\Util\PathTool;
 
 // Normalize
