@@ -15,5 +15,9 @@ To solve this problem, the library declares virtual paths using the following no
 <?php
 use TASoft\Util\PathTool;
 PathTool::isZeroPath("/my/path");       // TRUE
-PathTool::isZeroPath("../path");        // FALSE
+PathTool::isZeroPath("../path/");       // FALSE
+
+PathTool::isDirectory("my/path/to/");   // TRUE
+PathTool::isDirectory("/my/path.txt");  // FALSE
+PathTool::isDirectory("/my/path.txt/"); // TRUE
  ```
