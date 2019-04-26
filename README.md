@@ -21,3 +21,19 @@ PathTool::isDirectory("my/path/to/");   // TRUE
 PathTool::isDirectory("/my/path.txt");  // FALSE
 PathTool::isDirectory("/my/path.txt/"); // TRUE
  ```
+
+The core of `PathTool` is the method `yieldPathComponents`. It feeds other methods with path components. You can also use it directly with options described here:
+
+- OPTION_RESOLVE: Resolves empty directories, parent and current directories.
+- OPTION_DENY_OUT_OF_BOUNDS: Does not allow to choose parent directory of root directory (ex: `/root/path/../../../`)
+- OPTION_YIELD_ROOT: If a zero path, yields `/` as first component.
+- OPTION_YIELD_COMPONENT: Yields PathComponent object instead of strings.
+- OPTION_ALL: Include all options described before.
+
+```php
+// Use bitwise operators to join options:
+$options = PathTool::OPTION_RESOLVE | PathTool::OPTION_YIELD_ROOT;
+
+// Or subtract them
+$options = PathTool::OPTION_ALL & ~PathTool::OPTION_DENY_OUT_OF_BOUNDS & ~PathTool::OPTION_YIELD_ROOT;
+```
