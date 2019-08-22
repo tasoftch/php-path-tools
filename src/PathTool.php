@@ -207,4 +207,31 @@ class PathTool
     public static function isZeroPath(string $path): bool {
         return isset($path[0]) && $path[0] == DIRECTORY_SEPARATOR ? true : false;
     }
+
+    /**
+     * Determines the extension of a path
+     *
+     * @param string $path
+     * @param string|NULL $pathName
+     * @return string
+     */
+    public static function getPathExtension(string $path, string &$pathName = NULL): string {
+        $exts = explode(".", basename($path));
+        $pathName = array_shift($exts);
+        return array_pop($exts);
+    }
+
+    /**
+     * Determines the name of a path ( last path component minus extension )
+     *
+     * @param string $path
+     * @param string|NULL $extension
+     * @return string
+     */
+    public static function getPathName(string $path, string &$extension = NULL): string {
+        $exts = explode(".", basename($path));
+        $pathName = array_shift($exts);
+        $extension = array_pop($exts);
+        return $pathName;
+    }
 }
