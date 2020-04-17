@@ -62,3 +62,14 @@ echo PathTool::relative("/my/dir/1/", "/my/dir/2/");              // ../2/
 echo PathTool::relative("/path/file.txt", "/path/file.txt");      // ""
 echo PathTool::relative("/path/file.txt", "/path/");              // ./
 ```
+
+
+## Real Path Tool
+The ```RealPathTool``` allows to perform simple task on real files and directories such as iterating over contents.
+
+````php
+<?php
+use TASoft\Util\RealPathTool as Tool;
+
+
+````
