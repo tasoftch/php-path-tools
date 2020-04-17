@@ -127,4 +127,18 @@ class PathTest extends TestCase
         echo Tool::normalize("/my/../../path/to/file.txt");
         //      Out of range!              ^^
     }
+
+    public function testExtension() {
+    	$this->assertEquals("txt", Tool::getPathExtension("/my/path/to/target.txt"));
+		$this->assertEquals("php", Tool::getPathExtension("/my/path/to/target.php", $name));
+
+		$this->assertEquals("target", $name);
+	}
+
+	public function testPathName() {
+		$this->assertEquals("target", Tool::getPathName("/my/path/to/target.txt"));
+		$this->assertEquals("my-file", Tool::getPathName("/my/path/to/my-file.php", $ext));
+
+		$this->assertEquals("php", $ext);
+	}
 }
