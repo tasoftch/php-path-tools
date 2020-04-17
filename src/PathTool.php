@@ -38,7 +38,7 @@ use RuntimeException;
  *
  * @package TASoft\Util
  */
-class PathTool
+abstract class PathTool
 {
     /** @var int Resolves paths: test/here/.././/file.txt => test/file.txt */
     const OPTION_RESOLVE                = 1<<0;
@@ -192,7 +192,7 @@ class PathTool
      * @return bool
      */
     public static function isDirectory(string $path): bool {
-        return substr($path, -1) == DIRECTORY_SEPARATOR ? true : false;
+        return substr($path, -1) == DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -205,7 +205,7 @@ class PathTool
      * @return bool
      */
     public static function isZeroPath(string $path): bool {
-        return isset($path[0]) && $path[0] == DIRECTORY_SEPARATOR ? true : false;
+        return isset($path[0]) && $path[0] == DIRECTORY_SEPARATOR;
     }
 
     /**

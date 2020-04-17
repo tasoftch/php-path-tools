@@ -42,11 +42,12 @@ class PathComponent
     /** @var bool  */
     private $_final;
 
-    /**
-     * PathComponent constructor.
-     * @param bool $directory
-     * @param string $name
-     */
+	/**
+	 * PathComponent constructor.
+	 * @param bool $directory
+	 * @param string $name
+	 * @param bool $final
+	 */
     public function __construct(bool $directory, string $name, bool $final = false)
     {
         $this->directory = $directory;
