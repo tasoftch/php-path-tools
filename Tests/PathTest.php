@@ -104,6 +104,7 @@ class PathTest extends TestCase
      * @expectedException \RuntimeException
      */
     public function testRelativePathFailed() {
+		$this->expectException(RuntimeException::class);
         Tool::relative("/my/path/to/file.txt", "path/to/file.txt");
     }
 
@@ -123,7 +124,7 @@ class PathTest extends TestCase
      */
     public function testNormalizeFailedPath() {
         $this->assertEquals("../path/to/file.txt", Tool::normalize("my/../../path/to/file.txt"));
-
+		$this->expectException(RuntimeException::class);
         echo Tool::normalize("/my/../../path/to/file.txt");
         //      Out of range!              ^^
     }

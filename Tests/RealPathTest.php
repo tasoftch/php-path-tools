@@ -47,31 +47,43 @@ class RealPathTest extends TestCase
 	}
 
 	public function testPlainDirectory() {
+		$items = Tool::getDirectoryContents("Tests/RealDirTest");
+		sort($items);
+
 		$this->assertEquals([
 			'Tests/RealDirTest/Empty',
 			'Tests/RealDirTest/PhpFiles',
 			'Tests/RealDirTest/TextFiles',
-			'Tests/RealDirTest/global.txt',
-			'Tests/RealDirTest/global.php'
-		], Tool::getDirectoryContents("Tests/RealDirTest"), "", 0.0, 10, true);
+			'Tests/RealDirTest/global.php',
+			'Tests/RealDirTest/global.txt'
+		], $items, "", 0.0, 10, true);
 	}
 
 	public function testPlainDirectoryWithDirectoryFilter() {
+		$items = Tool::getDirectoryContents("Tests/RealDirTest", false, [new OnlyDirectoryFilter()]);
+		sort($items);
+
 		$this->assertEquals([
 			'Tests/RealDirTest/Empty',
 			'Tests/RealDirTest/PhpFiles',
 			'Tests/RealDirTest/TextFiles'
-		], Tool::getDirectoryContents("Tests/RealDirTest", false, [new OnlyDirectoryFilter()]), "", 0.0, 10, true);
+		], $items, "", 0.0, 10, true);
 	}
 
 	public function testPlainDirectoryWithFilesFilter() {
+		$items = Tool::getDirectoryContents("Tests/RealDirTest", false, [new OnlyFileFilter()]);
+		sort($items);
+
 		$this->assertEquals([
-			'Tests/RealDirTest/global.txt',
-			'Tests/RealDirTest/global.php'
-		], Tool::getDirectoryContents("Tests/RealDirTest", false, [new OnlyFileFilter()]), "", 0.0, 10, true);
+			'Tests/RealDirTest/global.php',
+			'Tests/RealDirTest/global.txt'
+		], $items, "", 0.0, 10, true);
 	}
 
 	public function testRecursiveDirectory() {
+		$items = Tool::getDirectoryContents("Tests/RealDirTest", true);
+		sort($items);
+
 		$this->assertEquals([
 			'Tests/RealDirTest/Empty',
 
@@ -81,25 +93,28 @@ class RealPathTest extends TestCase
 			'Tests/RealDirTest/PhpFiles/file3.php',
 
 			'Tests/RealDirTest/TextFiles',
+			'Tests/RealDirTest/TextFiles/Last',
+			'Tests/RealDirTest/TextFiles/Last/file4.txt',
+
 			'Tests/RealDirTest/TextFiles/file1.txt',
 			'Tests/RealDirTest/TextFiles/file2.txt',
 			'Tests/RealDirTest/TextFiles/file3.txt',
 
-			'Tests/RealDirTest/TextFiles/Last',
-			'Tests/RealDirTest/TextFiles/Last/file4.txt',
-
-			'Tests/RealDirTest/global.txt',
-			'Tests/RealDirTest/global.php'
-		], Tool::getDirectoryContents("Tests/RealDirTest", true), "", 0.0, 10, true);
+			'Tests/RealDirTest/global.php',
+			'Tests/RealDirTest/global.txt'
+		], $items, "", 0.0, 10, true);
 	}
 
 	public function testRecursiveDirectoryWithPHPOnly() {
+		$items = Tool::getDirectoryContents("Tests/RealDirTest", true, [new MatchGlobFilter("*.php")]);
+		sort($items);
+
 		$this->assertEquals([
 			'Tests/RealDirTest/PhpFiles/file1.php',
 			'Tests/RealDirTest/PhpFiles/file2.php',
 			'Tests/RealDirTest/PhpFiles/file3.php',
 
 			'Tests/RealDirTest/global.php'
-		], Tool::getDirectoryContents("Tests/RealDirTest", true, [new MatchGlobFilter("*.php")]), "", 0.0, 10, true);
+		], $items, "", 0.0, 10, true);
 	}
 }
